@@ -1,0 +1,17 @@
+#pragma once
+
+#include "../blikaengine.hpp"
+#include <functional>
+#include <random>
+
+namespace blikaengine{
+
+	float rnd(float min, float max);
+
+	template <typename T, typename... Rest>
+	void hashCombine(std::size_t& seed, const T& v, const Rest&... rest) {
+		seed ^= std::hash<T>{}(v) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+		(hashCombine(seed, rest), ...);
+	};
+
+}
